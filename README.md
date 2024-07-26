@@ -55,6 +55,7 @@ class CustomerTableSerializer(serializers.ModelSerializer):
         string_fields_data = validated_data.pop('string_fields')
         choice_fields_data = validated_data.pop('choice_fields')
         customer_table = CustomerTable.objects.create(**validated_data)
+        customer_table.save()
         for string_field_data in string_fields_data:
             StringField.objects.create(customer_table=customer_table, **string_field_data)
         for choice_field_data in choice_fields_data:
