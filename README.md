@@ -4,7 +4,7 @@ Questions when i program
 [Markdown文件用法](doc/howTo.md)
 
 <details>
-    ##<summary>1.如何使用多表结构并进行查询</summary>
+    <summary>1.如何使用多表结构并进行查询</summary>
 使用多表结构确实会让查询变得复杂一些，但 Django ORM 提供了强大的工具来简化这些操作。你可以利用 Django 的外键和预取机制来高效地进行关联查询。下面是如何使用多表结构并进行查询的详细说明。
 
 ## 模型定义
@@ -148,7 +148,8 @@ class CustomerTableViewSet(viewsets.ModelViewSet):
 </details>
 
 
-
+<details>
+    <summary>2.动态生成表</summary>
 要实现前端根据客户类型创建不同的数据表，最好的解决方案是前后端协作完成动态表单和动态模型生成。下面我将提供一个详细的步骤指南，涵盖前端表单生成、后端模型创建及数据管理。
 
 ### 1. 前端：动态表单生成
@@ -332,3 +333,4 @@ urlpatterns = [
 ### 总结
 
 这个解决方案展示了如何通过前端生成动态表单，并在后端根据这些表单定义动态生成Django模型。这样，你可以根据客户的需求创建不同类型的数据表，并可以在这些动态生成的表中进行数据操作。你可以根据具体需求进一步扩展和完善功能。
+</details>
