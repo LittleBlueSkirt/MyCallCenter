@@ -4,18 +4,7 @@ Questions when i program
 [Markdown文件用法](doc/howTo.md)
 
 <details>
-    <summary>点击展开/折叠</summary>
-- 无序列表项 1
-- 无序列表项 2
-  - 嵌套的无序列表项
-
-1. 有序列表项 1
-2. 有序列表项 2
-   1. 嵌套的有序列表项
-
-> “不积跬步，无以至千里。” —《荀子》
-</details>
-
+    <summary>如何使用多表结构并进行查询</summary>
 使用多表结构确实会让查询变得复杂一些，但 Django ORM 提供了强大的工具来简化这些操作。你可以利用 Django 的外键和预取机制来高效地进行关联查询。下面是如何使用多表结构并进行查询的详细说明。
 
 ## 模型定义
@@ -156,7 +145,7 @@ class CustomerTableViewSet(viewsets.ModelViewSet):
 ## 总结
 
 虽然使用多表结构增加了数据模型的复杂性，但 Django ORM 提供的工具可以简化关联查询，提高查询效率。通过合理使用 `select_related` 和 `prefetch_related`，可以在保持数据模型规范化的同时，确保查询性能。多表结构可以带来更好的数据组织和灵活性，尤其在数据量大且复杂的场景下。
-
+</details>
 
 
 
