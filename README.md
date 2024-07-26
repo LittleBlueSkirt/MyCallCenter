@@ -7,24 +7,24 @@ Questions when i program
 
 -## 模型定义
 
-```python
-from django.db import models
+-```python
+-from django.db import models
+-
+-class CustomerTable(models.Model):
+-    name = models.CharField(max_length=100)
 
-class CustomerTable(models.Model):
-    name = models.CharField(max_length=100)
-
-class StringField(models.Model):
-    customer_table = models.ForeignKey(CustomerTable, related_name='string_fields', on_delete=models.CASCADE)
-    name = models.CharField(max_length=100)
-    is_multiline = models.BooleanField(default=False)
-
-class ChoiceField(models.Model):
-    customer_table = models.ForeignKey(CustomerTable, related_name='choice_fields', on_delete=models.CASCADE)
-    name = models.CharField(max_length=100)
-    choices = models.TextField()  # 用逗号分隔的选项
-    is_multiple = models.BooleanField(default=False)
-```
-
+-class StringField(models.Model):
+-    customer_table = models.ForeignKey(CustomerTable, related_name='string_fields', on_delete=models.CASCADE)
+-    name = models.CharField(max_length=100)
+-    is_multiline = models.BooleanField(default=False)
+-
+-class ChoiceField(models.Model):
+-    customer_table = models.ForeignKey(CustomerTable, related_name='choice_fields', on_delete=models.CASCADE)
+-    name = models.CharField(max_length=100)
+-    choices = models.TextField()  # 用逗号分隔的选项
+-    is_multiple = models.BooleanField(default=False)
+-```
+-
 -## 序列化器定义
 
 ```python
