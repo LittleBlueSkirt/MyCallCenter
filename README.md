@@ -1,7 +1,7 @@
 # MyCallCenter
 Questions when i program
 
-[md文件用法](doc/howTo.md)
+[Markdown文件用法](doc/howTo.md)
 
 使用多表结构确实会让查询变得复杂一些，但 Django ORM 提供了强大的工具来简化这些操作。你可以利用 Django 的外键和预取机制来高效地进行关联查询。下面是如何使用多表结构并进行查询的详细说明。
 
