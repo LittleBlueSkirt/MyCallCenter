@@ -5,7 +5,7 @@ Questions when i program
 
 使用多表结构确实会让查询变得复杂一些，但 Django ORM 提供了强大的工具来简化这些操作。你可以利用 Django 的外键和预取机制来高效地进行关联查询。下面是如何使用多表结构并进行查询的详细说明。
 
-## 模型定义
+-## 模型定义
 
 ```python
 from django.db import models
@@ -25,7 +25,7 @@ class ChoiceField(models.Model):
     is_multiple = models.BooleanField(default=False)
 ```
 
-## 序列化器定义
+-## 序列化器定义
 
 ```python
 from rest_framework import serializers
@@ -60,7 +60,7 @@ class CustomerTableSerializer(serializers.ModelSerializer):
         return customer_table
 ```
 
-## 视图定义
+-## 视图定义
 
 ```python
 from rest_framework import viewsets
@@ -72,7 +72,7 @@ class CustomerTableViewSet(viewsets.ModelViewSet):
     serializer_class = CustomerTableSerializer
 ```
 
-## 路由配置
+-## 路由配置
 
 ```python
 from django.urls import path, include
@@ -87,7 +87,7 @@ urlpatterns = [
 ]
 ```
 
-## 查询
+-## 查询
 
 为了高效地查询并返回所有相关的数据，可以使用 `select_related` 和 `prefetch_related`。`select_related` 用于一对一和外键关系，而 `prefetch_related` 用于多对多关系和反向外键关系。
 
@@ -101,7 +101,7 @@ class CustomerTableViewSet(viewsets.ModelViewSet):
 
 这将确保在查询 `CustomerTable` 时，一并获取相关的 `StringField` 和 `ChoiceField` 数据，避免多次数据库查询，提高性能。
 
-## 使用示例
+-## 使用示例
 
 ### 创建客户表
 
@@ -140,7 +140,7 @@ class CustomerTableViewSet(viewsets.ModelViewSet):
 ]
 ```
 
-## 总结
+-## 总结
 
 虽然使用多表结构增加了数据模型的复杂性，但 Django ORM 提供的工具可以简化关联查询，提高查询效率。通过合理使用 `select_related` 和 `prefetch_related`，可以在保持数据模型规范化的同时，确保查询性能。多表结构可以带来更好的数据组织和灵活性，尤其在数据量大且复杂的场景下。
 
@@ -210,11 +210,11 @@ export default {
 </script>
 ```
 
-### 2. 后端：Django 动态模型生成
+-### 2. 后端：Django 动态模型生成
 
 在后端，接收前端的表单定义并动态创建Django模型。使用Django的 `ContentType` 和 `Model` 类来动态生成模型。
 
-#### 设置Django应用
+-#### 设置Django应用
 
 首先，在Django应用中创建一个视图来处理表单提交：
 
@@ -277,7 +277,7 @@ class DynamicTable(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 ```
 
-### 3. 数据操作接口
+-### 3. 数据操作接口
 
 创建API来管理动态生成的模型的数据。
 
@@ -309,7 +309,7 @@ class DynamicTableViewSet(viewsets.ViewSet):
         return Response({'status': 'success', 'data': list(data)})
 ```
 
-### 4. 配置路由
+-### 4. 配置路由
 
 在 `your_app/urls.py` 中配置路由：
 
@@ -327,6 +327,6 @@ urlpatterns = [
 ]
 ```
 
-### 总结
+-### 总结
 
 这个解决方案展示了如何通过前端生成动态表单，并在后端根据这些表单定义动态生成Django模型。这样，你可以根据客户的需求创建不同类型的数据表，并可以在这些动态生成的表中进行数据操作。你可以根据具体需求进一步扩展和完善功能。
