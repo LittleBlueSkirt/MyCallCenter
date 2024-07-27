@@ -494,6 +494,7 @@ MIDDLEWARE = [
 ```
 
 请确保将 `'callapp.middleware.DynamicModelMiddleware'` 替换为实际的导入路径。一旦添加，Django 会在每个请求的适当时机调用这个中间件。
+将 DynamicModelMiddleware 添加到 MIDDLEWARE 列表中意味着您希望在每个请求处理前执行注册动态模型的逻辑。然而，通常来说，模型注册和数据库交互这类操作更适合放在应用启动时执行，而不是在每个请求中执行。这可以避免不必要的重复操作，提高应用性能。
 
 </details>
 
