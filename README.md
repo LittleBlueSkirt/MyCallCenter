@@ -407,6 +407,39 @@ class CreateTableView(APIView):
 - **应用迁移**：运行 `migrate` 来应用这些迁移文件。
 
 ### 总结
+动态创建报个json
+http://120.26.136.17/api/create-table/
+
+{
+  "name": "Customer",
+  "fields": [
+    {
+      "name": "first_name",
+      "type": "char"
+    },
+    {
+      "name": "last_name",
+      "type": "char"
+    },
+    {
+      "name": "email",
+      "type": "char"
+    },
+    {
+      "name": "address",
+      "type": "text"
+    },
+    {
+      "name": "status",
+      "type": "choice",
+      "choices": [
+        "Active",
+        "Inactive"
+      ]
+    }
+  ]
+}
+
 
 在 Django 中动态创建模型是一个复杂的过程，尤其是由于 Django 的迁移系统和模型注册机制。上述代码解决了如何动态生成模型并将其创建到数据库中的问题，但在生产环境中，最好是使用更稳定的模式来管理模型的创建和迁移。
 
