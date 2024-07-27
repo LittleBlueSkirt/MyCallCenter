@@ -496,6 +496,61 @@ MIDDLEWARE = [
 请确保将 `'callapp.middleware.DynamicModelMiddleware'` 替换为实际的导入路径。一旦添加，Django 会在每个请求的适当时机调用这个中间件。
 将 DynamicModelMiddleware 添加到 MIDDLEWARE 列表中意味着您希望在每个请求处理前执行注册动态模型的逻辑。然而，通常来说，模型注册和数据库交互这类操作更适合放在应用启动时执行，而不是在每个请求中执行。这可以避免不必要的重复操作，提高应用性能。
 
+>每次拉取数据前，根据DynamicModelDefinition模型中预先存储的表机构，动态注册模型
+>        dynamic_models = DynamicModelDefinition.objects.all()
+>       for dynamic_model in dynamic_models:
+>            self.create_dynamic_model(dynamic_model.name, dynamic_model.fields)
+
+```
+class DynamicTableViewSet(viewsets.ViewSet):
+
+    @action(detail=False, methods=['post'])
+    def add_data(self, request):
+        model_name = request.data.get('model_name')
+        data = request.data.get('data')
+
+        Model = apps.get_model('callapp', model_name)
+        instance = Model.objects.create(**data)
+
+        return Response({'status': 'success', 'data_id': instance.id})
+
+    @action(detail=False, methods=['get'])
+    def list_data(self, request):
+        # Ensure that this code only runs for our app
+        dynamic_models = DynamicModelDefinition.objects.all()
+        for dynamic_model in dynamic_models:
+            self.create_dynamic_model(dynamic_model.name, dynamic_model.fields)
+        
+        # 返回包含模型类名的响应
+        model_name = request.query_params.get('model_name')
+        Model = apps.get_model('callapp', model_name)
+        data = Model.objects.all().values()
+
+        return Response({'status': 'success', 'data': list(data)})
+
+    def create_dynamic_model(self, name, fields):
+        attrs = {
+            '__module__': 'callapp.models',
+        }
+        for field in fields:
+            field_name = field['name']
+            field_type = field['type']
+            if field_type == 'char':
+                attrs[field_name] = models.CharField(max_length=255)
+            elif field_type == 'text':
+                attrs[field_name] = models.TextField()
+            elif field_type == 'choice':
+                choices = field.get('choices', [])
+                attrs[field_name] = models.CharField(max_length=255, choices=[(c, c) for c in choices])
+        
+        # Create the model
+        model = type(name, (models.Model,), attrs)
+
+        # Register the model with Django's app registry
+        app_label = 'callapp'
+        model._meta.app_label = app_label
+        apps.register_model(app_label, model)
+```
 </details>
 
 
