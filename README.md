@@ -443,6 +443,21 @@ http://120.26.136.17/api/create-table/
 
 在 Django 中动态创建模型是一个复杂的过程，尤其是由于 Django 的迁移系统和模型注册机制。上述代码解决了如何动态生成模型并将其创建到数据库中的问题，但在生产环境中，最好是使用更稳定的模式来管理模型的创建和迁移。
 
+```
+# callapp/middleware.py
+from ... import register_dynamic_models
+
+class DynamicModelMiddleware:
+    def __init__(self, get_response):
+        # One-time configuration and setup code
+        register_dynamic_models()
+
+    def __call__(self, request):
+        # Code to be executed for each request before
+        # the view (and later middleware) are called.
+        return get_response(request)
+```
+
 这个解决方案展示了如何通过前端生成动态表单，并在后端根据这些表单定义动态生成Django模型。这样，你可以根据客户的需求创建不同类型的数据表，并可以在这些动态生成的表中进行数据操作。你可以根据具体需求进一步扩展和完善功能。
 这段代码展示了如何在 Django 项目中创建一个自定义的中间件（`DynamicModelMiddleware`），用于在处理每个请求之前执行一次性的配置和设置代码。这里的特定设置是调用 `register_dynamic_models()` 函数，这个函数的目的是注册动态模型。
 
